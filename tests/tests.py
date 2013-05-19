@@ -122,3 +122,96 @@ class TestGetSummary(unittest.TestCase):
         value = self.yfget.operating_margin_ttm()
         self.assertEqual(value, 0.2530)
 
+    # ---- Management Effectiveness ----------------------------------------
+
+
+    def test_return_on_assets_ttm(self):
+        value = self.yfget.return_on_assets_ttm()
+        self.assertEqual(value, 0.0973,)
+
+
+    def test_return_on_equity_ttm(self):
+        value = self.yfget.return_on_equity_ttm()
+        self.assertEqual(value, 0.1636)
+
+
+    def test_revenue_ttm(self):
+        value = self.yfget.revenue_ttm()
+        self.assertEqual(value, 53500000000)
+
+
+    def test_revenue_per_share_ttm(self):
+        value = self.yfget.revenue_per_share_ttm()
+        self.assertEqual(value, 162.86)
+
+
+    def test_qtrly_revenue_growth_yoy(self):
+        value = self.yfget.qtrly_revenue_growth_yoy()
+        self.assertEqual(value, 0.3120)
+
+
+    def test_gross_profit_ttm(self):
+        value = self.yfget.gross_profit_ttm()
+        self.assertEqual(value, 29540000000)
+
+
+    def test_ebitda_ttm(self):
+        value = self.yfget.ebitda_ttm()
+        self.assertAlmostEqual(value, 16810000000, delta=5)
+
+
+    def test_net_income_avl_to_common_ttm(self):
+        value = self.yfget.net_income_avl_to_common_ttm()
+        self.assertEqual(value, 11220000000)
+
+
+    def test_diluted_eps_ttm(self):
+        value = self.yfget.diluted_eps_ttm()
+        self.assertEqual(value, 33.42)
+
+
+    def test_qtrly_earnings_growth_yoy(self):
+        value = self.yfget.qtrly_earnings_growth_yoy()
+        self.assertEqual(value, 0.1580)
+
+
+    def test_total_cash_mrq(self):
+        value = self.yfget.total_cash_mrq()
+        self.assertEqual(value, 50100000000)
+
+
+    def test_total_cash_per_share_mrq(self):
+        value = self.yfget.total_cash_per_share_mrq()
+        self.assertEqual(value, 151.00)
+
+
+    def test_total_debt_mrq(self):
+        value = self.yfget.total_debt_mrq()
+        self.assertEqual(value, 7380000000)
+
+
+    def test_total_debt_to_equity_mrq(self):
+        value = self.yfget.total_debt_to_equity_mrq()
+        self.assertEqual(value, 9.77)
+
+
+    def test_current_ratio_mrq(self):
+        value = self.yfget.current_ratio_mrq()
+        self.assertEqual(value, 4.74)
+
+
+    def test_book_value_per_share_mrq(self):
+        value = self.yfget.book_value_per_share_mrq()
+        self.assertEqual(value, 228.01)
+
+
+    def test_operating_cash_flow_ttm(self):
+        value = self.yfget.operating_cash_flow_ttm()
+
+        self.assertAlmostEqual(value, 16560000000, delta=5)
+
+
+
+    def test_levered_free_cash_flow_ttm(self):
+        value = self.yfget.levered_free_cash_flow_ttm()
+        self.assertEqual(value, 10990000000)

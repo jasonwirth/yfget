@@ -1,0 +1,118 @@
+{
+	"company": "Google Inc.",
+	"symbol": "GOOG",
+	"last_updated": "May 17, 4:00PM EDT",
+	"valuation":
+	{
+		"market_cap": 301640000000,
+		"enterprise_value": 261140000000,
+		"trailing_pe": 27.20,
+		"forward_pe": 17.10,
+		"peg_ratio": 1.32,
+		"price-to-sales_ttm": 5.61,
+		"price-to-book_mrq": 3.96,
+		"enterprise_value-to-revenue_ttm": 4.88,
+		"enterprise_value-to-ebitda_ttm": 15.53
+	},
+	"financial":
+	{
+		"fiscal_year":
+		{
+			"fiscal_year_ends": "Dec 30",
+			"most_recent_quarter_mrq": "Mar 31, 2013"
+		},
+		"profitability":
+		{
+			"profit_margin_ttm": 0.2092,
+			"operating_margin_ttm": 0.2530
+		},
+		"fiscal_year":
+		{
+			"return_on_assets_ttm": 0.0973,
+			"return_on_equity_ttm": 0.1636
+		},
+		"income_statement":
+		{
+			"revenue_ttm": 53500000000,
+			"revenue_per_share_ttm": 162.86,
+			"qtrly_revenue_growth_yoy": 0.3120,
+			"gross_profit_ttm": 29540000000,
+			"ebitda_ttm": 16810000000,
+			"net_income_avl_to_common_ttm": 11220000000,
+			"diluted_eps_ttm": 33.42,
+			"qtrly_earnings_growth_yoy": 0.1580
+		},
+		"balance_sheet":
+		{
+			"total_cash_mrq": 50100000000,
+			"total_cash_per_share_mrq": 151.00,
+			"total_debt_mrq": 7380000000,
+			"total_debt-to-equity_mr": 9.77,
+			"current_ratio_mrq": 4.74,
+			"book_value_per_share_mrq": 228.01
+		},
+		"cash_flow_statement":
+		{
+			"operating_cash_flow_ttm": 16560000000,
+			"levered_free_cash_flow_ttm": 10990000000
+		},
+	},
+	"trading":
+	{
+		"stock_price_history":
+		{
+			"beta": 1.16,
+			"52-week_change": 0.4805,
+			"sp500_52-week_change": 0.2874,
+			"52-week_high":
+			{
+				"price": 919.98,
+				"date": "may 16, 2013"
+			},
+			"52-week_low":
+			{
+				"price": 556.52,
+				"date": "jun 14, 2012"
+			},
+			"50-day_moving_average": 824.41,
+			"200-day_moving_average": 761.92
+		},
+		"share statistics":
+		{
+			"avg_vol_3_month:": 2314660,
+			"avg_vol_10_day:": 2447740,
+			"shares_outstanding:": 331770000,
+			"float:": 270730000,
+			"pct_held_by_insiders:": 0.033,
+			"pct_held_by_institutions:": 0.8560,
+			"shares_short":
+				{
+					"value": 4120000,
+					"date": "apr 30, 2013"
+				},
+			"short_ratio":
+				{
+					"value": 1.70,
+					"date": "apr 30, 2013"
+				},
+			"short_pct_of_float":
+				{
+					"date": 0.150,
+					"date": "apr 30, 2013"
+				},
+			"shares_short_prior_month:": 3560000
+		},
+		"dividends & splits":
+		{
+			"forward_annual_dividend_rate:": null,
+			"forward_annual_dividend_yield:": null,
+			"trailing_annual_dividend_yield:": null,
+			"trailing_annual_dividend_yield:": null,
+			"5_year_average_dividend_yield:": null,
+			"payout_ratio:": null,
+			"dividend_date:": null,
+			"ex-dividend_date:": null,
+			"last_split_factor_new_per_old:": null,
+			"last_split_date:" : null
+		}
+}

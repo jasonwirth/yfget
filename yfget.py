@@ -52,9 +52,9 @@ class YahooFinanceGet(object):
         return symbol
 
 
-    def get_table_data(self, column_name):
+    def get_table_data(self, column_name, occurance=0):
         xpath = "//td[contains(text(),'%s')]" % column_name
-        title_td = self.root.xpath(xpath)[0]
+        title_td = self.root.xpath(xpath)[occurance]
         tr = title_td.getparent()
         row = tr.getchildren()
         return row[1].text_content()
@@ -113,6 +113,7 @@ class YahooFinanceGet(object):
         return data
 
 
+    # ---- Profitability ----------------------------------------
     def profit_margin_ttm(self):
         data = self.get_table_data('Profit Margin')
         return Converter.percent_to_dec(data)
@@ -122,3 +123,92 @@ class YahooFinanceGet(object):
         return Converter.percent_to_dec(data)
 
 
+    # ---- Management Effectiveness ----------------------------------------
+    def return_on_assets_ttm(self):
+        data = self.get_table_data('Return on Assets (ttm)')
+        return Converter.percent_to_dec(data)
+
+
+    def return_on_equity_ttm(self):
+        data = self.get_table_data('Return on Equity (ttm)')
+        return Converter.percent_to_dec(data)
+
+
+    def revenue_ttm(self):
+        data = self.get_table_data('Revenue (ttm)', occurance=1)
+        return Converter.string_to_int(data)
+
+
+    def revenue_per_share_ttm(self):
+        data = self.get_table_data('Revenue Per Share (ttm)')
+        return float(data)
+
+
+    def qtrly_revenue_growth_yoy(self):
+        data = self.get_table_data('Qtrly Revenue Growth (yoy)')
+        return Converter.percent_to_dec(data)
+
+
+    def gross_profit_ttm(self):
+        data = self.get_table_data('Gross Profit (ttm)')
+        return Converter.string_to_int(data)
+
+
+    def ebitda_ttm(self):
+        data = self.get_table_data('EBITDA (ttm)', occurance=1)
+        return Converter.string_to_int(data)
+
+
+    def net_income_avl_to_common_ttm(self):
+        data = self.get_table_data('Net Income Avl to Common (ttm)')
+        return Converter.string_to_int(data)
+
+
+    def diluted_eps_ttm(self):
+        data = self.get_table_data('Diluted EPS (ttm)')
+        return float(data)
+
+
+    def qtrly_earnings_growth_yoy(self):
+        data = self.get_table_data('Qtrly Earnings Growth (yoy)')
+        return Converter.percent_to_dec(data)
+
+
+    def total_cash_mrq(self):
+        data = self.get_table_data('Total Cash (mrq)')
+        return Converter.string_to_int(data)
+
+
+    def total_cash_per_share_mrq(self):
+        data = self.get_table_data('Total Cash Per Share (mrq)')
+        return Converter.string_to_int(data)
+
+
+    def total_debt_mrq(self):
+        data = self.get_table_data('Total Debt (mrq)')
+        return Converter.string_to_int(data)
+
+
+    def total_debt_to_equity_mrq(self):
+        data = self.get_table_data('Total Debt/Equity (mrq)')
+        return float(data)
+
+
+    def current_ratio_mrq(self):
+        data = self.get_table_data('Current Ratio (mrq)')
+        return float(data)
+
+
+    def book_value_per_share_mrq(self):
+        data = self.get_table_data('Book Value Per Share (mrq)')
+        return float(data)
+
+
+    def operating_cash_flow_ttm(self):
+        data = self.get_table_data('Operating Cash Flow (ttm)')
+        return Converter.string_to_int(data)
+
+
+    def levered_free_cash_flow_ttm(self):
+        data = self.get_table_data('Levered Free Cash Flow (ttm)')
+        return Converter.string_to_int(data)
