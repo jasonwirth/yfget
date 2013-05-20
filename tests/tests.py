@@ -8,7 +8,7 @@ import unittest
 
 class TestFormatConverter(unittest.TestCase):
     def test_convert_string_to_num(self):
-        value = Converter.string_to_int('301.64B')
+        value = Converter.big_num_to_int('301.64B')
         self.assertEqual(value, 301640000000)
 
 
