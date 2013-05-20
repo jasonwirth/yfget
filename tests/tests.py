@@ -8,7 +8,7 @@ import unittest
 
 class TestFormatConverter(unittest.TestCase):
     def test_convert_string_to_num(self):
-        value = Converter.big_num_to_int('301.64B')
+        value = Converter.string_to_int('301.64B')
         self.assertEqual(value, 301640000000)
 
 
@@ -16,13 +16,6 @@ class TestFormatConverter(unittest.TestCase):
         value = Converter.percent_to_dec('25.30%')
         self.assertEqual(value, 0.253)
 
-    def test_extract_date(self):
-        value = Converter.extract_date('Short % of Float (as of Apr 30, 2013)3:')
-        self.assertEqual(value, 'Apr 30, 2013')
-
-    def test_remove_comma(self):
-        value = Converter.remove_comma('2,447,740')
-        self.assertEqual(value, 2447740)
 
 class TestGetSummary(unittest.TestCase):
     def setUp(self):
@@ -226,143 +219,3 @@ class TestGetSummary(unittest.TestCase):
     def test_text_equals(self):
         value = self.yfget.get_table_data('EBITDA (ttm)', exact=True)
         self.assertEquals(value, '16.81B' )
-
-
-    def test_get_cell_date(self):
-        value = self.yfget.get_table_data('Short % of Float', col_position=0)
-        value = Converter.extract_date(value)
-        self.assertEqual(value, 'Apr 30, 2013')
-
-
-
-    #============================================================
-    # Trading Information
-    #============================================================
-
-    def test_beta(self):
-        value = self.yfget.beta()
-        self.assertEqual(value, 1.16)
-
-    def test_fifty_two_week_change(self):
-        value = self.yfget.fifty_two_week_change()
-        self.assertEqual(value, 0.4805)
-
-    def test_sp500_fifty_two_week_change(self):
-        value = self.yfget.sp500_fifty_two_week_change()
-        self.assertEqual(value, 0.2874)
-
-    def test_fifty_two_week_high_price(self):
-        value = self.yfget.fifty_two_week_high_price()
-        self.assertEqual(value, 919.98)
-
-    def test_fifty_two_week_high_date(self):
-        value = self.yfget.fifty_two_week_high_date()
-        self.assertEqual(value, "May 16, 2013")
-
-    def test_fifty_two_week_low_price(self):
-        value = self.yfget.fifty_two_week_low_price()
-        self.assertEqual(value, 556.52)
-
-    def test_fifty_two_week_low_date(self):
-        value = self.yfget.fifty_two_week_low_date()
-        self.assertEqual(value, "Jun 14, 2012")
-
-    def test_fifty_day_moving_average(self):
-        value = self.yfget.fifty_day_moving_average()
-        self.assertEqual(value, 824.41)
-
-    def test_two_hundred_day_moving_average(self):
-        value = self.yfget.two_hundred_day_moving_average()
-        self.assertEqual(value, 761.92)
-
-    def test_avg_vol_3_month(self):
-        value = self.yfget.avg_vol_3_month()
-        self.assertEqual(value, 2314660)
-
-    def test_avg_vol_10_day(self):
-        value = self.yfget.avg_vol_10_day()
-        self.assertEqual(value, 2447740)
-
-    def test_shares_outstanding(self):
-        value = self.yfget.shares_outstanding()
-        self.assertEqual(value, 331770000)
-
-    def test_float(self):
-        value = self.yfget.float()
-        self.assertEqual(value, 270730000)
-
-    def test_pct_held_by_insiders(self):
-        value = self.yfget.pct_held_by_insiders()
-        self.assertAlmostEqual(value, 0.0033)
-
-    def test_pct_held_by_institutions(self):
-        value = self.yfget.pct_held_by_institutions()
-        self.assertEqual(value, 0.8560)
-
-    def test_shares_short_value(self):
-        value = self.yfget.shares_short_value()
-        self.assertEqual(value, 4120000)
-
-    def test_shares_short_date(self):
-        value = self.yfget.shares_short_date()
-        self.assertEqual(value, "Apr 30, 2013")
-
-    def test_short_ratio_value(self):
-        value = self.yfget.short_ratio_value()
-        self.assertEqual(value, 1.70)
-
-    def test_short_ratio_date(self):
-        value = self.yfget.short_ratio_date()
-        self.assertEqual(value, "Apr 30, 2013")
-
-    def test_short_pct_of_float_value(self):
-        value = self.yfget.short_pct_of_float_value()
-        self.assertEqual(value, 0.0150)
-
-    def test_short_pct_of_float_date(self):
-        value = self.yfget.short_pct_of_float_date()
-        self.assertEqual(value, "Apr 30, 2013")
-
-    def test_shares_short_prior_month(self):
-        value = self.yfget.shares_short_prior_month()
-        self.assertEqual(value, 3560000)
-
-    def test_forward_annual_dividend_rate(self):
-        value = self.yfget.forward_annual_dividend_rate()
-        self.assertEqual(value, 'N/A')
-
-    def test_forward_annual_dividend_yield(self):
-        value = self.yfget.forward_annual_dividend_yield()
-        self.assertEqual(value, 'N/A')
-
-    def test_trailing_annual_dividend_yield(self):
-        value = self.yfget.trailing_annual_dividend_yield()
-        self.assertEqual(value, 'N/A')
-
-    def test_trailing_annual_dividend_yield(self):
-        value = self.yfget.trailing_annual_dividend_yield()
-        self.assertEqual(value, 'N/A')
-
-    def test_five_year_average_dividend_yield(self):
-        value = self.yfget.five_year_average_dividend_yield()
-        self.assertEqual(value, 'N/A')
-
-    def test_payout_ratio(self):
-        value = self.yfget.payout_ratio()
-        self.assertEqual(value, 'N/A')
-
-    def test_dividend_date(self):
-        value = self.yfget.dividend_date()
-        self.assertEqual(value, 'N/A')
-
-    def test_ex_dividend_date(self):
-        value = self.yfget.ex_dividend_date()
-        self.assertEqual(value, 'N/A')
-
-    def test_last_split_factor_new_per_old(self):
-        value = self.yfget.last_split_factor_new_per_old()
-        self.assertEqual(value, 'N/A')
-
-    def test_last_split_date(self):
-        value = self.yfget.last_split_date()
-        self.assertEqual(value, 'N/A')
