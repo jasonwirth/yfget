@@ -211,7 +211,11 @@ class TestGetSummary(unittest.TestCase):
         self.assertAlmostEqual(value, 16560000000, delta=5)
 
 
-
     def test_levered_free_cash_flow_ttm(self):
         value = self.yfget.levered_free_cash_flow_ttm()
         self.assertEqual(value, 10990000000)
+
+
+    def test_text_equals(self):
+        value = self.yfget.get_table_data('EBITDA (ttm)', exact=True)
+        self.assertEquals(value, '16.81B' )

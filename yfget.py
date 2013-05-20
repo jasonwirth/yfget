@@ -52,8 +52,11 @@ class YahooFinanceGet(object):
         return symbol
 
 
-    def get_table_data(self, column_name, occurance=0):
-        xpath = "//td[contains(text(),'%s')]" % column_name
+    def get_table_data(self, column_name, occurance=0, exact=False):
+        if exact:
+            xpath = "//td[text()='%s']" % column_name
+        else:
+            xpath = "//td[contains(text(),'%s')]" % column_name
         title_td = self.root.xpath(xpath)[occurance]
         tr = title_td.getparent()
         row = tr.getchildren()
