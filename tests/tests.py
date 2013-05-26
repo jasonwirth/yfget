@@ -225,8 +225,7 @@ class TestLoadingURLData(unittest.TestCase):
         yfget = YahooFinanceGet()
         yfget.load_summary_from_url(symbol='GOOG')
 
-        name = yfget.get_company_name()
-        self.assertEqual(name, "Google Inc.")
+        self.assertEqual(yfget.get_company_name(), "Google Inc.")
 
 
     def test_loading_incorrect_symbol(self):
