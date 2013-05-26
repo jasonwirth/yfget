@@ -2,9 +2,9 @@ __author__ = 'jasonwirth'
 
 from lxml import etree, html
 from yfget import YahooFinanceGet, Converter
-
-
 import unittest
+
+
 
 class TestFormatConverter(unittest.TestCase):
     def test_convert_string_to_num(self):
@@ -17,12 +17,11 @@ class TestFormatConverter(unittest.TestCase):
         self.assertEqual(value, 0.253)
 
 
+
 class TestGetSummary(unittest.TestCase):
     def setUp(self):
         yfg = YahooFinanceGet()
-
         yfg.load_summary_from_html('GOOG-Key-Statistics.html')
-
         self.yfget = yfg
 
 
@@ -35,8 +34,10 @@ class TestGetSummary(unittest.TestCase):
 
         self.assertEqual(name, 'Google Inc.')
 
+
     def test_get_company_symbol(self):
         symbol = self.yfget.get_company_symbol()
+
         self.assertEqual(symbol, 'GOOG')
 
     # def test_get_valuation(self):
@@ -47,7 +48,7 @@ class TestGetSummary(unittest.TestCase):
     # def test_get_table(self):
     #     table_name = "Valuation Measures"
     #     col_name = "Market Cap"
-    #     value = self.yfget.get_table_data(table_name, col_name)
+    #     value = self.yfget.lookup_table(table_name, col_name)
     #     self.assertEqual(value, '301.64B')
 
 
@@ -58,7 +59,6 @@ class TestGetSummary(unittest.TestCase):
     def test_get_market_cap(self):
         market_cap_str = self.yfget.get_market_cap(fmt='str')
         market_cap_dec = self.yfget.get_market_cap()
-
 
         self.assertEqual(market_cap_str, '301.64B')
         self.assertEqual(market_cap_dec, 301640000000)
@@ -207,7 +207,6 @@ class TestGetSummary(unittest.TestCase):
 
     def test_operating_cash_flow_ttm(self):
         value = self.yfget.operating_cash_flow_ttm()
-
         self.assertAlmostEqual(value, 16560000000, delta=5)
 
 
@@ -217,5 +216,5 @@ class TestGetSummary(unittest.TestCase):
 
 
     def test_text_equals(self):
-        value = self.yfget.get_table_data('EBITDA (ttm)', exact=True)
+        value = self.yfget.lookup_table('EBITDA (ttm)', exact=True)
         self.assertEquals(value, '16.81B' )
