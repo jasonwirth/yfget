@@ -1,3 +1,6 @@
+import urllib
+import urllib2
+
 __author__ = 'jasonwirth'
 
 
@@ -54,6 +57,19 @@ class YahooFinanceGet(object):
         with open(html_file, 'r') as f:
             html_string = f.read()
         self.root = html.fromstring(html_string)
+
+
+    def load_summary_from_url(self, symbol):
+        address = "http://finance.yahoo.com/q/ks?s=%s+Key+Statistics" % (symbol)
+        url = urllib2.urlopen(address)
+        html_string = url.read()
+        root = html.fromstring(html_string)
+        # Look for error code in html
+        contents = root.text_content()
+        err_msg = "There are no All Markets results for %s" % (symbol)
+        if err_msg in contents:
+            raise IOError(err_msg)
+        self.root = root
 
 
     def get_company_name(self):
@@ -415,4 +431,5 @@ class YahooFinanceGet(object):
     def last_split_date(self):
         data = self.lookup_table('Last Split Date')
         return data
+
 

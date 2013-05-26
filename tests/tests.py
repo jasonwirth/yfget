@@ -218,3 +218,17 @@ class TestGetSummary(unittest.TestCase):
     def test_text_equals(self):
         value = self.yfget.lookup_table('EBITDA (ttm)', exact=True)
         self.assertEquals(value, '16.81B' )
+
+
+class TestLoadingURLData(unittest.TestCase):
+    def test_loads_url_and_reads_name(self):
+        yfget = YahooFinanceGet()
+        yfget.load_summary_from_url(symbol='GOOG')
+
+        name = yfget.get_company_name()
+        self.assertEqual(name, "Google Inc.")
+
+
+    def test_loading_incorrect_symbol(self):
+        yfget = YahooFinanceGet()
+        self.assertRaises(IOError, yfget.load_summary_from_url,'GOGG')
