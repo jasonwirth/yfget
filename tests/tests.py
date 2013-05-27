@@ -599,19 +599,9 @@ class TestGetSummaryText(unittest.TestCase):
         self.assertEqual(value, "919.98")
 
 
-    def test_fifty_two_week_high_date_text(self):
-        value = self.yfget.fifty_two_week_high_date(format="text")
-        self.assertEqual(value, "May 16, 2013")
-
-
     def test_fifty_two_week_low_price_text(self):
         value = self.yfget.fifty_two_week_low_price(format="text")
         self.assertEqual(value, "556.52")
-
-
-    def test_fifty_two_week_low_date_text(self):
-        value = self.yfget.fifty_two_week_low_date(format="text")
-        self.assertEqual(value, "Jun 14, 2012")
 
 
     def test_fifty_day_moving_average_text(self):
@@ -659,29 +649,14 @@ class TestGetSummaryText(unittest.TestCase):
         self.assertEqual(value, "4.12M")
 
 
-    def test_shares_short_date_text(self):
-        value = self.yfget.shares_short_date(format="text")
-        self.assertEqual(value, "Apr 30, 2013")
-
-
     def test_short_ratio_value_text(self):
         value = self.yfget.short_ratio_data(format="text")
         self.assertEqual(value, "1.70")
 
 
-    def test_short_ratio_date_text(self):
-        value = self.yfget.short_ratio_date(format="text")
-        self.assertEqual(value, "Apr 30, 2013")
-
-
     def test_short_pct_of_float_value_text(self):
         value = self.yfget.short_pct_of_float_data(format="text")
         self.assertEqual(value, "1.50%")
-
-
-    def test_short_pct_of_float_date_text(self):
-        value = self.yfget.short_pct_of_float_date(format="text")
-        self.assertEqual(value, "Apr 30, 2013")
 
 
     def test_shares_short_prior_month_text(self):

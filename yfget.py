@@ -367,10 +367,8 @@ class YahooFinanceGet(object):
         return float(data)
 
 
-    def fifty_two_week_high_date(self, format=None):
+    def fifty_two_week_high_date(self):
         data = self.lookup_table('52-Week High', col_position=0)
-        if format == "text":
-            return data
         return Converter.extract_date(data)
 
 
@@ -381,10 +379,8 @@ class YahooFinanceGet(object):
         return float(data)
 
 
-    def fifty_two_week_low_date(self, format=None):
+    def fifty_two_week_low_date(self):
         data = self.lookup_table('52-Week Low', col_position=0)
-        if format == "text":
-            return data
         return Converter.extract_date(data)
 
 
@@ -451,10 +447,8 @@ class YahooFinanceGet(object):
         return Converter.big_num_to_int(data)
 
 
-    def shares_short_date(self, format=None):
+    def shares_short_date(self):
         data = self.lookup_table('Shares Short', col_position=0)
-        if format == "text":
-            return data
         return Converter.extract_date(data)
 
 
@@ -465,10 +459,8 @@ class YahooFinanceGet(object):
         return float(data)
 
 
-    def short_ratio_date(self, format=None):
+    def short_ratio_date(self):
         data = self.lookup_table('Short Ratio', col_position=0)
-        if format == "text":
-            return data
         return Converter.extract_date(data)
 
 
@@ -479,10 +471,8 @@ class YahooFinanceGet(object):
         return Converter.percent_to_dec(data)
 
 
-    def short_pct_of_float_date(self, format=None):
+    def short_pct_of_float_date(self):
         data = self.lookup_table('Short % of Float', col_position=0)
-        if format == "text":
-            return data
         return Converter.extract_date(data)
 
 
