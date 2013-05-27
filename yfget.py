@@ -11,23 +11,25 @@ import re
 
 class Converter(object):
     @classmethod
-    def big_num_to_int(cls, str_num):
-        num = str_num[-1]
-        value = float(str_num[:-1])
-        if num =='M':
-            value = value * 1e6
-        elif num == 'B':
-            value = value * 1e9
-        elif num == "T":
-            value = value * 1.12
-        return int(value)
+    def big_num_to_int(cls, str_num, decimals=2):
+        letter = str_num[-1]
+        num = str_num[:-1]
+        left, right = num.split('.')
+        left, right = int(left), int(right)
+        if letter =='M':
+            value = left * 1e6 + right * 1e4 
+        elif letter == 'B':
+            value = left * 1e9 + right * 1e7
+        elif letter == "T":
+            value = left * 1e12 + right * 1e9
+        return value
 
 
     @classmethod
-    def percent_to_dec(cls, percent_str):
+    def percent_to_dec(cls, percent_str, decimals=4):
         value = percent_str[:-1]
         value = float(value)
-        return value / 100
+        return round(value / 100, decimals)
 
 
     @classmethod
@@ -290,7 +292,7 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Total Cash Per Share (mrq)')
         if fmt == "text":
             return data
-        return Converter.big_num_to_int(data)
+        return float(data)
 
 
     def total_debt_mrq(self, fmt=None):
@@ -551,6 +553,29 @@ class YahooFinanceGet(object):
         if fmt == "text":
             return data
         return data
+
+
+    def shares_short_value(self, fmt=None):
+        data = self.lookup_table('Shares Short')
+        if fmt=="text":
+            return data
+        return Converter.big_num_to_int(data)
+
+
+    def short_pct_of_float_value(self, fmt=None):
+        data = self.lookup_table("Short % of Float")
+        if fmt == "text":
+            return data
+        return Converter.percent_to_dec(data)
+
+
+    def short_ratio_value(self, fmt=None):
+        data = self.lookup_table("Short Ratio")
+        if fmt == "text":
+            return data
+        return float(data)
+
+
 
 class KeyStatistics(object):
     def __init__(self):

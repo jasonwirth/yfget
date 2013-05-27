@@ -12,6 +12,11 @@ class TestfmtConverter(unittest.TestCase):
         self.assertEqual(value, 301640000000)
 
 
+    def test_convert_big_num_funky_float(self):
+        value = Converter.big_num_to_int("16.56B")
+        self.assertEqual(value,16560000000)
+
+
     def test_convert_percent_to_dec(self):
         value = Converter.percent_to_dec('25.30%')
         self.assertEqual(value, 0.253)
@@ -104,7 +109,7 @@ class TestGetSummary(unittest.TestCase):
     def test_profit_margin_ttm(self):
         value = self.yfget.profit_margin_ttm()
         # self.assertEqual(value, 0.2092)
-        self.assertAlmostEquals(value, 0.2092)
+        self.assertEquals(value, 0.2092)
 
 
     def test_operating_margin_ttm(self):
@@ -146,7 +151,7 @@ class TestGetSummary(unittest.TestCase):
 
     def test_ebitda_ttm(self):
         value = self.yfget.ebitda_ttm()
-        self.assertAlmostEqual(value, 16810000000, delta=5)
+        self.assertEqual(value, 16810000000)
 
 
     def test_net_income_avl_to_common_ttm(self):
@@ -196,7 +201,7 @@ class TestGetSummary(unittest.TestCase):
 
     def test_operating_cash_flow_ttm(self):
         value = self.yfget.operating_cash_flow_ttm()
-        self.assertAlmostEqual(value, 16560000000, delta=5)
+        self.assertEqual(value, 16560000000)
 
 
     def test_levered_free_cash_flow_ttm(self):
@@ -286,7 +291,7 @@ class TestGetSummary(unittest.TestCase):
 
     def test_pct_held_by_insiders(self):
         value = self.yfget.pct_held_by_insiders()
-        self.assertAlmostEqual(value, 0.0033)
+        self.assertEqual(value, 0.0033)
 
 
     def test_pct_held_by_institutions(self):
@@ -298,6 +303,11 @@ class TestGetSummary(unittest.TestCase):
         value = self.yfget.shares_short_value()
         self.assertEqual(value, 4120000)
 
+        value = self.yfget.shares_short_value(fmt="text")
+        self.assertEqual(value, "4.12M")
+
+
+
 
     def test_shares_short_date(self):
         value = self.yfget.shares_short_date()
@@ -307,6 +317,9 @@ class TestGetSummary(unittest.TestCase):
     def test_short_ratio_value(self):
         value = self.yfget.short_ratio_value()
         self.assertEqual(value, 1.70)
+
+        value = self.yfget.short_ratio_value(fmt="text")
+        self.assertEqual(value, "1.70")
 
 
     def test_short_ratio_date(self):
@@ -318,6 +331,8 @@ class TestGetSummary(unittest.TestCase):
         value = self.yfget.short_pct_of_float_value()
         self.assertEqual(value, 0.0150)
 
+        value = self.yfget.short_pct_of_float_value(fmt="text")
+        self.assertEqual(value, "1.50%")
 
     def test_short_pct_of_float_date(self):
         value = self.yfget.short_pct_of_float_date()
@@ -469,7 +484,7 @@ class TestGetSummaryText(unittest.TestCase):
     def test_profit_margin_ttm_text(self):
         value = self.yfget.profit_margin_ttm(fmt="text")
         # self.assertEqual(value, 0.2092)
-        self.assertAlmostEquals(value, "20.92%")
+        self.assertEquals(value, "20.92%")
 
 
     def test_operating_margin_ttm_text(self):
@@ -512,7 +527,7 @@ class TestGetSummaryText(unittest.TestCase):
 
     def test_ebitda_ttm_text(self):
         value = self.yfget.ebitda_ttm(fmt="text")
-        self.assertAlmostEqual(value, "16.81B")
+        self.assertEqual(value, "16.81B")
 
 
     def test_net_income_avl_to_common_ttm_text(self):
@@ -562,7 +577,7 @@ class TestGetSummaryText(unittest.TestCase):
 
     def test_operating_cash_flow_ttm_text(self):
         value = self.yfget.operating_cash_flow_ttm(fmt="text")
-        self.assertAlmostEqual(value, "16.56B", delta=5)
+        self.assertEqual(value, "16.56B")
 
 
     def test_levered_free_cash_flow_ttm_text(self):
@@ -636,7 +651,7 @@ class TestGetSummaryText(unittest.TestCase):
 
     def test_pct_held_by_insiders_text(self):
         value = self.yfget.pct_held_by_insiders(fmt="text")
-        self.assertAlmostEqual(value, "0.33%")
+        self.assertEqual(value, "0.33%")
 
 
     def test_pct_held_by_institutions_text(self):
