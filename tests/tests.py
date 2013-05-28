@@ -728,3 +728,15 @@ class TestGetSummaryText(unittest.TestCase):
         value = self.yfget.last_split_date(fmt="text")
         self.assertEqual(value, 'N/A')
 
+
+
+class TestCanReturnDict(unittest.TestCase):
+    def setUp(self):
+        self.yfget = YahooFinanceGet()
+        self.yfget.load_summary_from_html('GOOG-Key-Statistics.html')
+
+
+    def test_name_dict(self):
+        d = self.yfget.to_dict()
+        self.assertEqual(d['company'], 'Google Inc.')
+        self.assertEqual(d['symbol'], 'GOOG')
