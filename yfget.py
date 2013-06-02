@@ -34,6 +34,7 @@ class Converter(object):
 
     @classmethod
     def extract_date(cls, text):
+        # TODO: Make this return a datetime object
         pattern = r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}"
         match = re.search(pattern, text)
         if match:
@@ -109,12 +110,12 @@ class YahooFinanceGet(object):
         return row[col_position ].text_content()
 
 
-    def get_market_cap(self, fmt='dec'):
+    def market_cap(self, fmt=None):
         data = self.lookup_table('Market Cap')
-        if fmt == 'dec':
-            return Converter.big_num_to_int(data)
-        if fmt == 'str':
+        if fmt == 'text':
             return data
+        return Converter.big_num_to_int(data)
+
 
 
     def get_enterprise_value(self, fmt=None):
@@ -124,49 +125,49 @@ class YahooFinanceGet(object):
         return Converter.big_num_to_int(data)
 
 
-    def get_trailing_pe(self, fmt=None):
+    def trailing_pe(self, fmt=None):
         data = self.lookup_table('Trailing P/E')
         if fmt == "text":
             return data
         return float(data)
 
 
-    def get_forward_pe(self, fmt=None):
+    def forward_pe(self, fmt=None):
         data = self.lookup_table('Forward P/E')
         if fmt == "text":
             return data
         return float(data)
 
 
-    def get_peg_ratio(self, fmt=None):
+    def peg_ratio(self, fmt=None):
         data = self.lookup_table('PEG Ratio')
         if fmt == "text":
             return data
         return float(data)
 
 
-    def get_price_to_sales_ttm(self, fmt=None):
+    def price_to_sales_ttm(self, fmt=None):
         data = self.lookup_table('Price/Sales')
         if fmt == "text":
             return data
         return float(data)
 
 
-    def get_price_to_book_mrq(self, fmt=None):
+    def price_to_book_mrq(self, fmt=None):
         data = self.lookup_table('Price/Book')
         if fmt == "text":
             return data
         return float(data)
 
 
-    def get_enterprise_value_to_revenue_ttm(self, fmt=None):
+    def enterprise_value_to_revenue_ttm(self, fmt=None):
         data = self.lookup_table('Enterprise Value/Revenue')
         if fmt == "text":
             return data
         return float(data)
 
 
-    def get_enterprise_value_to_ebitda_ttm(self, fmt=None):
+    def enterprise_value_to_ebitda_ttm(self, fmt=None):
         data = self.lookup_table('Enterprise Value/EBITDA')
         if fmt == "text":
             return data
@@ -369,9 +370,14 @@ class YahooFinanceGet(object):
         return float(data)
 
 
-    def fifty_two_week_high_date(self):
+    def fifty_two_week_high_date(self, fmt=None):
         data = self.lookup_table('52-Week High', col_position=0)
-        return Converter.extract_date(data)
+        str_date = Converter.extract_date(data)
+        if fmt=="text":
+            return str_date
+        # TODO: Return a datetime object
+        raise Exception("TODO: Implement return datetime object")
+
 
 
     def fifty_two_week_low_price(self, fmt=None):
@@ -381,10 +387,13 @@ class YahooFinanceGet(object):
         return float(data)
 
 
-    def fifty_two_week_low_date(self):
+    def fifty_two_week_low_date(self, fmt=None):
         data = self.lookup_table('52-Week Low', col_position=0)
-        return Converter.extract_date(data)
-
+        str_date = Converter.extract_date(data)
+        if fmt == "text":
+            return str_date
+            # TODO: Return a datetime object
+        raise Exception("TODO: Implement return datetime object")
 
     def fifty_day_moving_average(self, fmt=None):
         data = self.lookup_table('50-Day Moving Average')
@@ -449,33 +458,45 @@ class YahooFinanceGet(object):
         return Converter.big_num_to_int(data)
 
 
-    def shares_short_date(self):
+    def shares_short_date(self, fmt=None):
         data = self.lookup_table('Shares Short', col_position=0)
-        return Converter.extract_date(data)
-
-
-    def short_ratio_data(self, fmt=None):
-        data = self.lookup_table('Short Ratio')
+        str_date = Converter.extract_date(data)
         if fmt == "text":
-            return data
-        return float(data)
+            return str_date
+            # TODO: Return a datetime object
+        raise Exception("TODO: Implement return datetime object")
 
 
-    def short_ratio_date(self):
+    # def short_ratio_data(self, fmt=None):
+    #     data = self.lookup_table('Short Ratio')
+    #     if fmt == "text":
+    #         return data
+    #     return float(data)
+
+
+    def short_ratio_date(self, fmt=None):
         data = self.lookup_table('Short Ratio', col_position=0)
-        return Converter.extract_date(data)
-
-
-    def short_pct_of_float_data(self, fmt=None):
-        data = self.lookup_table('Short % of Float')
+        str_date = Converter.extract_date(data)
         if fmt == "text":
-            return data
-        return Converter.percent_to_dec(data)
+            return str_date
+            # TODO: Return a datetime object
+        raise Exception("TODO: Implement return datetime object")
 
 
-    def short_pct_of_float_date(self):
+    # def short_pct_of_float_data(self, fmt=None):
+    #     data = self.lookup_table('Short % of Float')
+    #     if fmt == "text":
+    #         return data
+    #     return Converter.percent_to_dec(data)
+
+
+    def short_pct_of_float_date(self, fmt=None):
         data = self.lookup_table('Short % of Float', col_position=0)
-        return Converter.extract_date(data)
+        str_date = Converter.extract_date(data)
+        if fmt == "text":
+            return str_date
+            # TODO: Return a datetime object
+        raise Exception("TODO: Implement return datetime object")
 
 
     def shares_short_prior_month(self, fmt=None):
@@ -575,6 +596,19 @@ class YahooFinanceGet(object):
             return data
         return float(data)
 
+
+    def last_update(self):
+        # elements = self.root.xpath('//*[@id="yfs_t53_goog"]')
+        # elements = self.root.xpath('//span[@class="time_rtq"]/span')
+        elements = self.root.xpath('//*[@id="yfs_market_time"]')
+        text = elements[0].text_content()
+        return text.split(" - ")[0]
+
+
+
+
+
+    #============================
     def to_dict(self, fmt=None):
         d = {
             "company": self.get_company_name(),
@@ -582,118 +616,127 @@ class YahooFinanceGet(object):
             "last_updated": self.last_update(),
             "valuation_measures":
                 {
-                    "market_cap": 301640000000,
-                    "enterprise_value": 261140000000,
-                    "trailing_pe": 27.20,
-                    "forward_pe": 17.10,
-                    "peg_ratio": 1.32,
-                    "price-to-sales_ttm": 5.61,
-                    "price-to-book_mrq": 3.96,
-                    "enterprise_value-to-revenue_ttm": 4.88,
-                    "enterprise_value-to-ebitda_ttm": 15.53
+                    "market_cap": self.market_cap(fmt=fmt),
+                    "enterprise_value": self.get_enterprise_value(fmt=fmt),
+                    "trailing_pe": self.trailing_pe(fmt=fmt),
+                    "forward_pe": self.forward_pe(fmt=fmt),
+                    "peg_ratio": self.peg_ratio(fmt=fmt),
+                    "price-to-sales_ttm": self.price_to_sales_ttm(fmt=fmt),
+                    "price-to-book_mrq": self.price_to_book_mrq(fmt=fmt),
+                    "enterprise_value-to-revenue_ttm": self.enterprise_value_to_revenue_ttm(fmt=fmt),
+                    "enterprise_value-to-ebitda_ttm": self.enterprise_value_to_ebitda_ttm(fmt=fmt)
                 },
             "financial_highlights":
                 {
                     "fiscal_year":
                         {
-                            "fiscal_year_ends": "Dec 30",
-                            "most_recent_quarter_mrq": "Mar 31, 2013"
+                            "fiscal_year_ends": self.fiscal_year_ends(fmt=fmt),
+                            "most_recent_quarter_mrq": self.most_recent_quarter_mrq(fmt=fmt)
                         },
                     "profitability":
                         {
-                            "profit_margin_ttm": 0.2092,
-                            "operating_margin_ttm": 0.2530
+                            "profit_margin_ttm": self.profit_margin_ttm(fmt=fmt),
+                            "operating_margin_ttm": self.operating_margin_ttm(fmt=fmt)
                         },
                     "management_effectiveness":
                         {
-                            "return_on_assets_ttm": 0.0973,
-                            "return_on_equity_ttm": 0.1636
+                            "return_on_assets_ttm": self.return_on_assets_ttm(fmt=fmt),
+                            "return_on_equity_ttm": self.return_on_equity_ttm(fmt=fmt)
                         },
                     "income_statement":
                         {
-                            "revenue_ttm": 53500000000,
-                            "revenue_per_share_ttm": 162.86,
-                            "qtrly_revenue_growth_yoy": 0.3120,
-                            "gross_profit_ttm": 29540000000,
-                            "ebitda_ttm": 16810000000,
-                            "net_income_avl_to_common_ttm": 11220000000,
-                            "diluted_eps_ttm": 33.42,
-                            "qtrly_earnings_growth_yoy": 0.1580
+                            "revenue_ttm": self.revenue_ttm(fmt=fmt),
+                            "revenue_per_share_ttm": self.revenue_per_share_ttm(fmt=fmt),
+                            "qtrly_revenue_growth_yoy": self.qtrly_revenue_growth_yoy(fmt=fmt),
+                            "gross_profit_ttm": self.gross_profit_ttm(fmt=fmt),
+                            "ebitda_ttm": self.ebitda_ttm(fmt=fmt),
+                            "net_income_avl_to_common_ttm": self.net_income_avl_to_common_ttm(fmt=fmt),
+                            "diluted_eps_ttm": self.diluted_eps_ttm(fmt=fmt),
+                            "qtrly_earnings_growth_yoy": self.qtrly_earnings_growth_yoy(fmt=fmt)
                         },
                     "balance_sheet":
                         {
-                            "total_cash_mrq": 50100000000,
-                            "total_cash_per_share_mrq": 151.00,
-                            "total_debt_mrq": 7380000000,
-                            "total_debt-to-equity_mr": 9.77,
-                            "current_ratio_mrq": 4.74,
-                            "book_value_per_share_mrq": 228.01
+                            "total_cash_mrq": self.total_cash_mrq(fmt=fmt),
+                            "total_cash_per_share_mrq": self.total_cash_per_share_mrq(fmt=fmt),
+                            "total_debt_mrq": self.total_debt_mrq(fmt=fmt),
+                            "total_debt_to_equity_mrq": self.total_debt_to_equity_mrq(fmt=fmt),
+                            "current_ratio_mrq": self.current_ratio_mrq(fmt=fmt),
+                            "book_value_per_share_mrq": self.book_value_per_share_mrq(fmt=fmt)
                         },
                     "cash_flow_statement":
                         {
-                            "operating_cash_flow_ttm": 16560000000,
-                            "levered_free_cash_flow_ttm": 10990000000
+                            "operating_cash_flow_ttm": self.operating_cash_flow_ttm(fmt=fmt),
+                            "levered_free_cash_flow_ttm": self.levered_free_cash_flow_ttm(fmt=fmt)
                         }
                 },
             "trading_information":
                 {
                     "stock_price_history":
                         {
-                            "beta": 1.16,
-                            "52-week_change": 0.4805,
-                            "sp500_52-week_change": 0.2874,
+                            "beta": self.beta(fmt=fmt),
+                            "52-week_change": self.fifty_two_week_change(fmt=fmt),
+                            "sp500_52-week_change": self.sp500_fifty_two_week_change(fmt=fmt),
                             "52-week_high":
                                 {
-                                    "value": 919.98,
-                                    "date": "may 16, 2013"
+                                    "value": self.fifty_two_week_high_price(fmt=fmt),
+                                    "date": self.fifty_two_week_high_date(fmt=fmt)
                                 },
                             "52-week_low":
                                 {
-                                    "value": 556.52,
-                                    "date": "jun 14, 2012"
+                                    "value": self.fifty_two_week_low_price(fmt=fmt),
+                                    "date": self.fifty_two_week_low_date(fmt=fmt)
                                 },
-                            "50-day_moving_average": 824.41,
-                            "200-day_moving_average": 761.92
+                            "50-day_moving_average": self.fifty_day_moving_average(fmt=fmt),
+                            "200-day_moving_average": self.two_hundred_day_moving_average(fmt=fmt)
                         },
                     "share_statistics":
                         {
-                            "avg_vol_3_month:": 2314660,
-                            "avg_vol_10_day:": 2447740,
-                            "shares_outstanding:": 331770000,
-                            "float:": 270730000,
-                            "pct_held_by_insiders:": 0.033,
-                            "pct_held_by_institutions:": 0.8560,
+                            "avg_vol_3_month:": self.avg_vol_3_month(fmt=fmt),
+                            "avg_vol_10_day:": self.avg_vol_10_day(fmt=fmt),
+                            "shares_outstanding:": self.shares_outstanding(fmt=fmt),
+                            "float:": self.float(fmt=fmt),
+                            "pct_held_by_insiders:": self.pct_held_by_insiders(fmt=fmt),
+                            "pct_held_by_institutions:": self.pct_held_by_institutions(fmt=fmt),
                             "shares_short":
                                 {
-                                    "value": 4120000,
-                                    "date": "apr 30, 2013"
+                                    "value": self.shares_short_value(fmt=fmt),
+                                    "date": self.shares_short_date(fmt=fmt)
                                 },
                             "short_ratio":
                                 {
-                                    "value": 1.70,
-                                    "date": "apr 30, 2013"
+                                    "value": self.short_ratio_value(fmt=fmt),
+                                    "date": self.short_ratio_date(fmt=fmt)
                                 },
                             "short_pct_of_float":
                                 {
-                                    "value": 0.150,
-                                    "date": "apr 30, 2013"
+                                    "value": self.short_pct_of_float_value(fmt=fmt),
+                                    "date": self.short_pct_of_float_date(fmt=fmt)
                                 },
-                            "shares_short_prior_month:": 3560000
+                            "shares_short_prior_month:": self.shares_short_prior_month(fmt=fmt)
                         },
                     "dividends & splits":
                         {
-                            "forward_annual_dividend_rate:": None,
-                            "forward_annual_dividend_yield:": None,
-                            "trailing_annual_dividend_yield:": None,
-                            "xtrailing_annual_dividend_yield:": None,
-                            "5_year_average_dividend_yield:": None,
-                            "payout_ratio:": None,
-                            "dividend_date:": None,
-                            "ex-dividend_date:": None,
-                            "last_split_factor_new_per_old:": None,
-                            "last_split_date:": None
+                            "forward_annual_dividend_rate:": self.forward_annual_dividend_rate(fmt=fmt),
+                            "forward_annual_dividend_yield:": self.forward_annual_dividend_yield(fmt=fmt),
+                            "trailing_annual_dividend_yield:": self.trailing_annual_dividend_yield(fmt=fmt),
+                            "trailing_annual_dividend_yield_pct:": self.trailing_annual_dividend_yield_pct(fmt=fmt),
+                            "5_year_average_dividend_yield:": self.five_year_average_dividend_yield(fmt=fmt),
+                            "payout_ratio:": self.payout_ratio(fmt=fmt),
+                            "dividend_date:": self.dividend_date(fmt=fmt),
+                            "ex-dividend_date:": self.ex_dividend_date(fmt=fmt),
+                            "last_split_factor_new_per_old:": self.last_split_factor_new_per_old(fmt=fmt),
+                            "last_split_date:": self.last_split_date(fmt=fmt)
                         }
                 }
-            }
+        }
 
         return d
+
+
+    def trailing_annual_dividend_yield_pct(self, fmt=None):
+        data = self.lookup_table("Trailing Annual Dividend Yield", occurrence=1)
+        if fmt == "text":
+            return data
+        return Converter.percent_to_dec(data)
+
+

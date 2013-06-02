@@ -21,6 +21,10 @@ class TestfmtConverter(unittest.TestCase):
         value = Converter.percent_to_dec('25.30%')
         self.assertEqual(value, 0.253)
 
+    def test_extract_date_string(self):
+        date = Converter.extract_date("Shares Short (as of Apr 30, 2013)3:")
+        self.assertEqual(date, "Apr 30, 2013")
+
 
 
 class TestGetSummary(unittest.TestCase):
@@ -46,12 +50,17 @@ class TestGetSummary(unittest.TestCase):
         self.assertEqual(symbol, 'GOOG')
 
 
+    def test_last_update(self):
+        date = self.yfget.last_update()
+        self.assertEqual(date, "Sat, May 18, 2013, 10:17AM EDT")
+
+
     #==================================================================================================================
     # VALUATION
     #==================================================================================================================
     def test_get_market_cap(self):
-        market_cap_str = self.yfget.get_market_cap(fmt='str')
-        market_cap_dec = self.yfget.get_market_cap()
+        market_cap_str = self.yfget.market_cap(fmt='str')
+        market_cap_dec = self.yfget.market_cap()
 
         self.assertEqual(market_cap_str, '301.64B')
         self.assertEqual(market_cap_dec, 301640000000)
@@ -63,31 +72,31 @@ class TestGetSummary(unittest.TestCase):
 
 
     def test_get_trailing_pe(self):
-        value = self.yfget.get_trailing_pe()
+        value = self.yfget.trailing_pe()
         self.assertEqual(value, 27.20)
 
     def test_get_forward_pe(self):
-        value = self.yfget.get_forward_pe()
+        value = self.yfget.forward_pe()
         self.assertEqual(value, 17.10)
 
     def test_get_peg_ratio(self):
-        value = self.yfget.get_peg_ratio()
+        value = self.yfget.peg_ratio()
         self.assertEqual(value, 1.32)
 
     def test_get_price_to_sales_ttm(self):
-        value = self.yfget.get_price_to_sales_ttm()
+        value = self.yfget.price_to_sales_ttm()
         self.assertEqual(value, 5.61)
 
     def test_get_price_to_book_mrq(self):
-        value = self.yfget.get_price_to_book_mrq()
+        value = self.yfget.price_to_book_mrq()
         self.assertEqual(value, 3.96)
 
     def test_get_enterprise_value_to_revenue_ttm(self):
-        value = self.yfget.get_enterprise_value_to_revenue_ttm()
+        value = self.yfget.enterprise_value_to_revenue_ttm()
         self.assertEqual(value, 4.88)
 
     def test_get_enterprise_value_to_ebitda_ttm(self):
-        value = self.yfget.get_enterprise_value_to_ebitda_ttm()
+        value = self.yfget.enterprise_value_to_ebitda_ttm()
         self.assertEqual(value, 15.53)
 
 
@@ -359,8 +368,8 @@ class TestGetSummary(unittest.TestCase):
         self.assertEqual(value, 'N/A')
 
 
-    def test_trailing_annual_dividend_yield(self):
-        value = self.yfget.trailing_annual_dividend_yield()
+    def test_trailing_annual_dividend_yield_pct(self):
+        value = self.yfget.trailing_annual_dividend_yield_pct()
         self.assertEqual(value, 'N/A')
 
 
@@ -419,8 +428,8 @@ class TestGetSummaryText(unittest.TestCase):
     # VALUATION
     #==================================================================================================================
     def test_get_market_cap_text(self):
-        market_cap_str = self.yfget.get_market_cap(fmt='str')
-        market_cap_dec = self.yfget.get_market_cap()
+        market_cap_str = self.yfget.market_cap(fmt='str')
+        market_cap_dec = self.yfget.market_cap()
 
         self.assertEqual(market_cap_str, '301.64B')
         self.assertEqual(market_cap_dec, 301640000000)
@@ -432,37 +441,37 @@ class TestGetSummaryText(unittest.TestCase):
 
 
     def test_get_trailing_pe_text(self):
-        value = self.yfget.get_trailing_pe(fmt="text")
+        value = self.yfget.trailing_pe(fmt="text")
         self.assertEqual(value, "27.20")
 
 
     def test_get_forward_pe_text(self):
-        value = self.yfget.get_forward_pe(fmt="text")
+        value = self.yfget.forward_pe(fmt="text")
         self.assertEqual(value, "17.10")
 
 
     def test_get_peg_ratio_text(self):
-        value = self.yfget.get_peg_ratio(fmt="text")
+        value = self.yfget.peg_ratio(fmt="text")
         self.assertEqual(value, "1.32")
 
 
     def test_get_price_to_sales_ttm_text(self):
-        value = self.yfget.get_price_to_sales_ttm(fmt="text")
+        value = self.yfget.price_to_sales_ttm(fmt="text")
         self.assertEqual(value, "5.61")
 
 
     def test_get_price_to_book_mrq_text(self):
-        value = self.yfget.get_price_to_book_mrq(fmt="text")
+        value = self.yfget.price_to_book_mrq(fmt="text")
         self.assertEqual(value, "3.96")
 
 
     def test_get_enterprise_value_to_revenue_ttm_text(self):
-        value = self.yfget.get_enterprise_value_to_revenue_ttm(fmt="text")
+        value = self.yfget.enterprise_value_to_revenue_ttm(fmt="text")
         self.assertEqual(value, "4.88")
 
 
     def test_get_enterprise_value_to_ebitda_ttm_text(self):
-        value = self.yfget.get_enterprise_value_to_ebitda_ttm(fmt="text")
+        value = self.yfget.enterprise_value_to_ebitda_ttm(fmt="text")
         self.assertEqual(value, "15.53")
 
 
@@ -730,6 +739,7 @@ class TestGetSummaryText(unittest.TestCase):
 
 
 
+
 class TestCanReturnDict(unittest.TestCase):
     def setUp(self):
         self.yfget = YahooFinanceGet()
@@ -740,3 +750,83 @@ class TestCanReturnDict(unittest.TestCase):
         d = self.yfget.to_dict()
         self.assertEqual(d['company'], 'Google Inc.')
         self.assertEqual(d['symbol'], 'GOOG')
+        self.assertEqual(d['last_updated'], 'May 17, 4:00PM EDT')
+
+
+    def test_valuation_measures(self):
+        d = self.yfget.to_dict()
+
+        self.assertEqual(d['valuation_measures']['market_cap'], 301640000000)
+        self.assertEqual(d['valuation_measures']['enterprise_value'], 261140000000)
+        self.assertEqual(d['valuation_measures']['trailing_pe'], 27.20)
+        self.assertEqual(d['valuation_measures']['forward_pe'], 17.10)
+        self.assertEqual(d['valuation_measures']['peg_ratio'], 1.32)
+        self.assertEqual(d['valuation_measures']["price-to-sales_ttm"], 5.61)
+        self.assertEqual(d['valuation_measures']["price-to-book_mrq"], 3.96)
+        self.assertEqual(d['valuation_measures']["enterprise_value-to-revenue_ttm"], 4.88)
+        self.assertEqual(d['valuation_measures']["enterprise_value-to-ebitda_ttm"], 15.53)
+
+
+    def test_financial_highlights(self):
+        d = self.yfget.to_dict()
+        d = d['financial_highlights']
+
+
+class TestReadDictFromFile(unittest.TestCase):
+
+    def setUp(self):
+        import ast
+
+        # Read our file with the dict stored as a text file
+        with open("AAPL-dict.txt", "r") as f:
+            dict_txt = f.read()
+
+        # Convert our text to a python dict
+        self.text_dict = ast.literal_eval(dict_txt)
+
+        yfg = YahooFinanceGet()
+        yfg.load_summary_from_html("AAPL-Key-Statistics.html")
+        self.yfg_dict = yfg.to_dict(fmt="text")
+
+        self.maxDiff = None
+
+    def test_aapl_dict_valuation_measures(self):
+        key = "valuation_measures"
+        self.assertDictEqual(self.text_dict[key],
+                             self.yfg_dict[key])
+
+
+    def test_aapl_dict_financial_highlights(self):
+        key = "financial_highlights"
+        self.assertDictEqual(self.text_dict[key],
+                             self.yfg_dict[key])
+
+
+    def test_aapl_dict_trading_information(self):
+        key = "trading_information"
+        self.assertDictEqual(self.text_dict[key],
+                             self.yfg_dict[key])
+
+
+
+class TestReadDictFromFileMaxDiff(unittest.TestCase):
+    def test_compare_dict(self):
+        import ast
+
+        # Read our file with the dict stored as a text file
+        with open("AAPL-dict.txt", "r") as f:
+            dict_txt = f.read()
+
+        # Convert our text to a python dict
+        self.text_dict = ast.literal_eval(dict_txt)
+
+        yfg = YahooFinanceGet()
+        yfg.load_summary_from_html("AAPL-Key-Statistics.html")
+        self.yfg_dict = yfg.to_dict(fmt="text")
+
+        self.maxDiff = None
+
+
+        self.assertDictEqual(self.text_dict,
+                             self.yfg_dict)
+
