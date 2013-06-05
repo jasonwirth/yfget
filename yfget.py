@@ -12,7 +12,18 @@ import re
 class Converter(object):
     @classmethod
     def big_num_to_int(cls, str_num, decimals=2):
+        # Can be NA
+        if str_num == "N/A":
+            return 0.0
+
+        # Can be 0.00
+        if str_num == "0.00":
+            return float(str_num)
+
+        # Can be big int
         letter = str_num[-1]
+        if not letter.isalpha():
+            return float(str_num)
         num = str_num[:-1]
         left, right = num.split('.')
         left, right = int(left), int(right)
@@ -22,7 +33,9 @@ class Converter(object):
             value = left * 1e9 + right * 1e7
         elif letter == "T":
             value = left * 1e12 + right * 1e9
-        return value
+        else:
+            raise Exception("Value: %s doesnt fit" % str_num)
+        return int(value)
 
 
     @classmethod
@@ -307,14 +320,14 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Total Debt/Equity (mrq)')
         if fmt == "text":
             return data
-        return float(data)
+        return Converter.big_num_to_int(data)
 
 
     def current_ratio_mrq(self, fmt=None):
         data = self.lookup_table('Current Ratio (mrq)')
         if fmt == "text":
             return data
-        return float(data)
+        return Converter.big_num_to_int(data)
 
 
     def book_value_per_share_mrq(self, fmt=None):
@@ -375,9 +388,9 @@ class YahooFinanceGet(object):
         str_date = Converter.extract_date(data)
         if fmt=="text":
             return str_date
-        # TODO: Return a datetime object
-        raise Exception("TODO: Implement return datetime object")
-
+        else:
+            # TODO: Return a datetime object
+            return str_date
 
 
     def fifty_two_week_low_price(self, fmt=None):
@@ -392,8 +405,10 @@ class YahooFinanceGet(object):
         str_date = Converter.extract_date(data)
         if fmt == "text":
             return str_date
+        else:
             # TODO: Return a datetime object
-        raise Exception("TODO: Implement return datetime object")
+            return str_date
+
 
     def fifty_day_moving_average(self, fmt=None):
         data = self.lookup_table('50-Day Moving Average')
@@ -464,7 +479,8 @@ class YahooFinanceGet(object):
         if fmt == "text":
             return str_date
             # TODO: Return a datetime object
-        raise Exception("TODO: Implement return datetime object")
+        else:
+            return str_date
 
 
     # def short_ratio_data(self, fmt=None):
@@ -480,7 +496,8 @@ class YahooFinanceGet(object):
         if fmt == "text":
             return str_date
             # TODO: Return a datetime object
-        raise Exception("TODO: Implement return datetime object")
+        else:
+            return str_date
 
 
     # def short_pct_of_float_data(self, fmt=None):
@@ -496,7 +513,8 @@ class YahooFinanceGet(object):
         if fmt == "text":
             return str_date
             # TODO: Return a datetime object
-        raise Exception("TODO: Implement return datetime object")
+        else:
+            return str_date
 
 
     def shares_short_prior_month(self, fmt=None):
@@ -510,28 +528,28 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Forward Annual Dividend Rate')
         if fmt == "text":
             return data
-        return data
+        return Converter.percent_to_dec(data)
 
 
     def forward_annual_dividend_yield(self, fmt=None):
         data = self.lookup_table('Forward Annual Dividend Yield')
         if fmt == "text":
             return data
-        return data
+        return Converter.percent_to_dec(data)
 
 
     def trailing_annual_dividend_yield(self, fmt=None):
         data = self.lookup_table('Trailing Annual Dividend Yield')
         if fmt == "text":
             return data
-        return data
+        return Converter.percent_to_dec(data)
 
 
     def trailing_annual_dividend_yield(self, fmt=None):
         data = self.lookup_table('Trailing Annual Dividend Yield')
         if fmt == "text":
             return data
-        return data
+        return Converter.percent_to_dec(data)
 
 
     def five_year_average_dividend_yield(self, fmt=None):
@@ -545,7 +563,7 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Payout Ratio')
         if fmt == "text":
             return data
-        return data
+        return Converter.percent_to_dec(data)
 
 
     def dividend_date(self, fmt=None):

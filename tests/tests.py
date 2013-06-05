@@ -59,7 +59,7 @@ class TestGetSummary(unittest.TestCase):
     # VALUATION
     #==================================================================================================================
     def test_get_market_cap(self):
-        market_cap_str = self.yfget.market_cap(fmt='str')
+        market_cap_str = self.yfget.market_cap(fmt='text')
         market_cap_dec = self.yfget.market_cap()
 
         self.assertEqual(market_cap_str, '301.64B')
@@ -808,25 +808,4 @@ class TestReadDictFromFile(unittest.TestCase):
                              self.yfg_dict[key])
 
 
-
-class TestReadDictFromFileMaxDiff(unittest.TestCase):
-    def test_compare_dict(self):
-        import ast
-
-        # Read our file with the dict stored as a text file
-        with open("AAPL-dict.txt", "r") as f:
-            dict_txt = f.read()
-
-        # Convert our text to a python dict
-        self.text_dict = ast.literal_eval(dict_txt)
-
-        yfg = YahooFinanceGet()
-        yfg.load_summary_from_html("AAPL-Key-Statistics.html")
-        self.yfg_dict = yfg.to_dict(fmt="text")
-
-        self.maxDiff = None
-
-
-        self.assertDictEqual(self.text_dict,
-                             self.yfg_dict)
 
