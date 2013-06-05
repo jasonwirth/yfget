@@ -1,0 +1,119 @@
+{
+"company": "Apple Inc.",
+"symbol": "AAPL",
+"last_updated": "Wed, May 29, 2013, 2:12PM EDT",
+"valuation_measures":
+    {
+        "market_cap": "418.46B",
+        "enterprise_value": "378.70B",
+        "trailing_pe": "10.64",
+        "forward_pe": "10.20",
+        "peg_ratio": "0.53",
+        "price-to-sales_ttm": "2.45",
+        "price-to-book_mrq": "3.06",
+        "enterprise_value-to-revenue_ttm": "2.24",
+        "enterprise_value-to-ebitda_ttm": "6.60"
+    },
+"financial_highlights":
+    {
+        "fiscal_year":
+            {
+                "fiscal_year_ends": "Sep 28",
+                "most_recent_quarter_mrq": "Mar 30, 2013"
+            },
+        "profitability":
+            {
+                "profit_margin_ttm": "23.46%",
+                "operating_margin_ttm": "30.92%"
+            },
+        "management_effectiveness":
+            {
+                "return_on_assets_ttm": "18.91%",
+                "return_on_equity_ttm": "33.34%"
+            },
+        "income_statement":
+            {
+                "revenue_ttm": "169.10B",
+                "revenue_per_share_ttm": "180.22",
+                "qtrly_revenue_growth_yoy": "11.30%",
+                "gross_profit_ttm": "68.66B",
+                "ebitda_ttm": "57.38B",
+                "net_income_avl_to_common_ttm": "39.67B",
+                "diluted_eps_ttm": "41.90",
+                "qtrly_earnings_growth_yoy": "-17.90%"
+            },
+        "balance_sheet":
+            {
+                "total_cash_mrq": "39.14B",
+                "total_cash_per_share_mrq": "41.70",
+                "total_debt_mrq": "0.00",
+                "total_debt_to_equity_mrq": "N/A",
+                "current_ratio_mrq": "1.78",
+                "book_value_per_share_mrq": "144.12"
+            },
+        "cash_flow_statement":
+            {
+                "operating_cash_flow_ttm": "55.26B",
+                "levered_free_cash_flow_ttm": "30.02B"
+            }
+    },
+"trading_information":
+    {
+        "stock_price_history":
+            {
+                "beta": "0.65",
+                "52-week_change": "-23.78%",
+                "sp500_52-week_change": "26.40%",
+                "52-week_high":
+                    {
+                        "value": "705.07",
+                        "date": "Sep 21, 2012"
+                    },
+                "52-week_low":
+                    {
+                        "value": "385.10",
+                        "date": "Apr 19, 2013"
+                    },
+                "50-day_moving_average": "432.65",
+                "200-day_moving_average": "475.48",
+            },
+        "share_statistics":
+            {
+                "avg_vol_3_month:": "16,613,800",
+                "avg_vol_10_day:": "14,080,300",
+                "shares_outstanding:": "938.65M",
+                "float:": "938.30M",
+                "pct_held_by_insiders:": "0.03%",
+                "pct_held_by_institutions:": "64.10%",
+                "shares_short":
+                    {
+                        "value": "41.59M",
+                        "date": "Apr 30, 2013"
+                    },
+                "short_ratio":
+                    {
+                        "value": "2.30",
+                        "date": "Apr 30, 2013"
+                    },
+                "short_pct_of_float":
+                    {
+                        "value": "4.40%",
+                        "date": "Apr 30, 2013"
+                    },
+                "shares_short_prior_month:": "20.07M",
+            },
+        "dividends & splits":
+            {
+                "forward_annual_dividend_rate:": "12.20",
+                "forward_annual_dividend_yield:": "2.70%",
+                "trailing_annual_dividend_yield:": "11.00",
+                "trailing_annual_dividend_yield_pct:": "2.50%",
+                "5_year_average_dividend_yield:": "N/A",
+                "payout_ratio:": "19.00%",
+                "dividend_date:": "May 15, 2013",
+                "ex-dividend_date:": "May 9, 2013",
+                "last_split_factor_new_per_old:": "2:1",
+                "last_split_date:": "Feb 28, 2005"
+            }
+    }
+}
