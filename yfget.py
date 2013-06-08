@@ -26,11 +26,13 @@ class Converter(object):
             return float(str_num)
         num = str_num[:-1]
         left, right = num.split('.')
-        left, right = int(left), int(right)
+        # Convert the right .XXX into a 3 digit int
+        left = int(left)
+        right = Converter.str_to_nplaces(right)
         if letter =='M':
-            value = left * 1e6 + right * 1e4 
+            value = left * 1e6 + right * 1e3
         elif letter == 'B':
-            value = left * 1e9 + right * 1e7
+            value = left * 1e9 + right * 1e6
         elif letter == "T":
             value = left * 1e12 + right * 1e9
         else:
@@ -40,6 +42,9 @@ class Converter(object):
 
     @classmethod
     def percent_to_dec(cls, percent_str, decimals=4):
+        if percent_str == 'N/A':
+            return None
+
         value = percent_str[:-1]
         value = float(value)
         return round(value / 100, decimals)
@@ -61,6 +66,13 @@ class Converter(object):
         return int(str_num.replace(',', ''))
 
 
+    @classmethod
+    def str_to_nplaces(cls, str_num, n=3):
+        places = list('0' * n)
+        for i, val in enumerate(str_num):
+            places[i] = val
+        num = ''.join(places)
+        return int(num)
 
 
 class YahooFinanceGet(object):
@@ -556,7 +568,7 @@ class YahooFinanceGet(object):
         data = self.lookup_table('5 Year Average Dividend Yield')
         if fmt == "text":
             return data
-        return data
+        return Converter.percent_to_dec(data)
 
 
     def payout_ratio(self, fmt=None):
@@ -570,6 +582,8 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Dividend Date')
         if fmt == "text":
             return data
+        if data == 'N/A':
+            return None
         return data
 
 
@@ -577,6 +591,8 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Ex-Dividend Date')
         if fmt == "text":
             return data
+        if data == 'N/A':
+            return None
         return data
 
 
@@ -584,6 +600,8 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Last Split Factor (new per old)')
         if fmt == "text":
             return data
+        if data == 'N/A':
+            return None
         return data
 
 
@@ -591,6 +609,8 @@ class YahooFinanceGet(object):
         data = self.lookup_table('Last Split Date')
         if fmt == "text":
             return data
+        if data == 'N/A':
+            return None
         return data
 
 
@@ -694,16 +714,10 @@ class YahooFinanceGet(object):
                             "beta": self.beta(fmt=fmt),
                             "52-week_change": self.fifty_two_week_change(fmt=fmt),
                             "sp500_52-week_change": self.sp500_fifty_two_week_change(fmt=fmt),
-                            "52-week_high":
-                                {
-                                    "value": self.fifty_two_week_high_price(fmt=fmt),
-                                    "date": self.fifty_two_week_high_date(fmt=fmt)
-                                },
-                            "52-week_low":
-                                {
-                                    "value": self.fifty_two_week_low_price(fmt=fmt),
-                                    "date": self.fifty_two_week_low_date(fmt=fmt)
-                                },
+                            "52-week_high": self.fifty_two_week_high_price(fmt=fmt),
+                            "52-week_high_date": self.fifty_two_week_high_date(fmt=fmt),
+                            "52-week_low": self.fifty_two_week_low_price(fmt=fmt),
+                            "52-week_low_date": self.fifty_two_week_low_date(fmt=fmt),
                             "50-day_moving_average": self.fifty_day_moving_average(fmt=fmt),
                             "200-day_moving_average": self.two_hundred_day_moving_average(fmt=fmt)
                         },
@@ -715,21 +729,12 @@ class YahooFinanceGet(object):
                             "float:": self.float(fmt=fmt),
                             "pct_held_by_insiders:": self.pct_held_by_insiders(fmt=fmt),
                             "pct_held_by_institutions:": self.pct_held_by_institutions(fmt=fmt),
-                            "shares_short":
-                                {
-                                    "value": self.shares_short_value(fmt=fmt),
-                                    "date": self.shares_short_date(fmt=fmt)
-                                },
-                            "short_ratio":
-                                {
-                                    "value": self.short_ratio_value(fmt=fmt),
-                                    "date": self.short_ratio_date(fmt=fmt)
-                                },
-                            "short_pct_of_float":
-                                {
-                                    "value": self.short_pct_of_float_value(fmt=fmt),
-                                    "date": self.short_pct_of_float_date(fmt=fmt)
-                                },
+                            "shares_short": self.shares_short_value(fmt=fmt),
+                            "shares_short_date": self.shares_short_date(fmt=fmt),
+                            "short_ratio": self.short_ratio_value(fmt=fmt),
+                            "short_ratio_date": self.short_ratio_date(fmt=fmt),
+                            "short_pct_of_float": self.short_pct_of_float_value(fmt=fmt),
+                            "short_pct_of_float_date": self.short_pct_of_float_date(fmt=fmt),
                             "shares_short_prior_month:": self.shares_short_prior_month(fmt=fmt)
                         },
                     "dividends & splits":

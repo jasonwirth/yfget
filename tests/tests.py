@@ -7,9 +7,23 @@ import unittest
 
 
 class TestfmtConverter(unittest.TestCase):
+    def test_convert_string_to_nplaces(self):
+        value = Converter.str_to_nplaces('5', n=3)
+        self.assertEqual(value, 500)
+
+        value = Converter.str_to_nplaces('5', n=2)
+        self.assertEqual(value, 50)
+
+        value = Converter.str_to_nplaces('55', n=4)
+        self.assertEqual(value, 5500)
+
+
+
     def test_convert_string_to_num(self):
-        value = Converter.big_num_to_int('301.64B')
-        self.assertEqual(value, 301640000000)
+        self.assertEqual(Converter.big_num_to_int('301.64B'), 301640000000)
+        self.assertEqual(Converter.big_num_to_int('1.5M'), 1500000)
+        self.assertEqual(Converter.big_num_to_int('1.5M'), 1500000)
+
 
 
     def test_convert_big_num_funky_float(self):
@@ -18,12 +32,14 @@ class TestfmtConverter(unittest.TestCase):
 
 
     def test_convert_percent_to_dec(self):
-        value = Converter.percent_to_dec('25.30%')
-        self.assertEqual(value, 0.253)
+        self.assertEqual(Converter.percent_to_dec('25.30%'), 0.253)
+        self.assertEqual(Converter.percent_to_dec('N/A'), None)
+
 
     def test_extract_date_string(self):
         date = Converter.extract_date("Shares Short (as of Apr 30, 2013)3:")
         self.assertEqual(date, "Apr 30, 2013")
+
 
 
 

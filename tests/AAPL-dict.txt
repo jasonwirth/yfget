@@ -64,16 +64,10 @@
                 "beta": "0.65",
                 "52-week_change": "-23.78%",
                 "sp500_52-week_change": "26.40%",
-                "52-week_high":
-                    {
-                        "value": "705.07",
-                        "date": "Sep 21, 2012"
-                    },
-                "52-week_low":
-                    {
-                        "value": "385.10",
-                        "date": "Apr 19, 2013"
-                    },
+                "52-week_high": "705.07",
+                "52-week_high_date": "Sep 21, 2012",
+                "52-week_low": "385.10",
+                "52-week_low_date": "Apr 19, 2013",
                 "50-day_moving_average": "432.65",
                 "200-day_moving_average": "475.48",
             },
@@ -85,21 +79,12 @@
                 "float:": "938.30M",
                 "pct_held_by_insiders:": "0.03%",
                 "pct_held_by_institutions:": "64.10%",
-                "shares_short":
-                    {
-                        "value": "41.59M",
-                        "date": "Apr 30, 2013"
-                    },
-                "short_ratio":
-                    {
-                        "value": "2.30",
-                        "date": "Apr 30, 2013"
-                    },
-                "short_pct_of_float":
-                    {
-                        "value": "4.40%",
-                        "date": "Apr 30, 2013"
-                    },
+                "shares_short": "41.59M",
+                "shares_short_date": "Apr 30, 2013",
+                "short_ratio": "2.30",
+                "short_ratio_date": "Apr 30, 2013",
+                "short_pct_of_float": "4.40%",
+                "short_pct_of_float_date": "Apr 30, 2013",
                 "shares_short_prior_month:": "20.07M",
             },
         "dividends & splits":

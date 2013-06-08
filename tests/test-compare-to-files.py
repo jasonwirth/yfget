@@ -68,7 +68,7 @@ class TestCompareToFile(unittest.TestCase):
         import ast
 
         # Read our file with the dict stored as a text file
-        with open("GOOG-dict.txt", "r") as f:
+        with open("GOOG-dict-numeric.txt", "r") as f:
             dict_txt = f.read()
 
         # Convert our text to a python dict

@@ -64,16 +64,10 @@
                 "beta": 0.65,
                 "52-week_change": -0.2378,
                 "sp500_52-week_change": 0.2640,
-                "52-week_high":
-                    {
-                        "value": 705.07,
-                        "date": "Sep 21, 2012"
-                    },
-                "52-week_low":
-                    {
-                        "value": 385.10,
-                        "date": "Apr 19, 2013"
-                    },
+                "52-week_high": 705.07,
+                "52-week_high_date": "Sep 21, 2012",
+                "52-week_low": 385.10,
+                "52-week_low_date": "Apr 19, 2013",
                 "50-day_moving_average": 432.65,
                 "200-day_moving_average": 475.48,
             },
@@ -85,21 +79,12 @@
                 "float:": 938300000,
                 "pct_held_by_insiders:": 0.0003,
                 "pct_held_by_institutions:": 0.6410,
-                "shares_short":
-                    {
-                        "value": 41590000,
-                        "date": "Apr 30, 2013"
-                    },
-                "short_ratio":
-                    {
-                        "value": 2.30,
-                        "date": "Apr 30, 2013"
-                    },
-                "short_pct_of_float":
-                    {
-                        "value": 0.0440,
-                        "date": "Apr 30, 2013"
-                    },
+                "shares_short": 41590000,
+                "shares_short_date": "Apr 30, 2013",
+                "short_ratio": 2.30,
+                "short_ratio_date": "Apr 30, 2013",
+                "short_pct_of_float": 0.0440,
+                "short_pct_of_float_date": "Apr 30, 2013",
                 "shares_short_prior_month:": 20070000,
             },
         "dividends & splits":
@@ -108,7 +93,7 @@
                 "forward_annual_dividend_yield:": 0.0270,
                 "trailing_annual_dividend_yield:": 0.1100,
                 "trailing_annual_dividend_yield_pct:": 0.0250,
-                "5_year_average_dividend_yield:": "N/A",
+                "5_year_average_dividend_yield:": None,
                 "payout_ratio:": 0.1900,
                 "dividend_date:": "May 15, 2013",
                 "ex-dividend_date:": "May 9, 2013",
